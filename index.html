@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input id="searchbar" onkeyup="search_animal()" type="text" name="search" placeholder="Search animals..">
+
+    <ul id="list">
+
+    </ul>
+    <script>
+
+        // JavaScript code
+        function search_animal() {
+            let input = document.getElementById('searchbar').value
+            input = input.toLowerCase();
+            let ul = document.getElementById('list');
+            // Making our request
+            fetch("/search?q=" + input, { method: 'GET' })
+                .then(Result => Result.json())
+                .then(data => {
+
+                    // Printing our response
+                    console.log(data);
+                    ul.innerHTML = "";
+                    for (let i = 0; i < data.length; i++) {
+                        let name = data[i]._source["name.en"];
+                        let li = document.createElement('li');
+                        li.appendChild(document.createTextNode(name));
+                        ul.appendChild(li);
+                    }
+                })
+                .catch(errorMsg => { console.log(errorMsg); });
+        }
+    </script>
+</body>
+
+</html>
