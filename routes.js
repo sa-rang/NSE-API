@@ -15,18 +15,18 @@ router.get('/', function (req, res) {
 router.get('/symbol/:symbol', cache('24 hour'), async function (req, res) {
     const symbol = req.params.symbol;
     let result = await getBySymbol(String(symbol).toLowerCase())
-    res.send(result);
+    res.json(result);
 });
 
 router.get('/search/:term', cache('24 hour'), async function (req, res) {
     const term = req.params.term;
     let result = await searchShareData(String(term).toLowerCase())
-    res.send(result);
+    res.json(result);
 });
 
 router.get('/sharelist', cache('24 hour'), async function (req, res) {
     let result = await getAllShareList();
-    res.send(result);
+    res.json(result);
 });
 
 export default router;

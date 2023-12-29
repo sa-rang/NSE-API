@@ -20,19 +20,18 @@
             input = input.toLowerCase();
             let ul = document.getElementById('list');
             // Making our request
-            fetch("/search?q=" + input, { method: 'GET' })
+            fetch("https://nse-api.netlify.app/api/search/" + input, { method: 'GET' })
                 .then(Result => Result.json())
                 .then(data => {
-
                     // Printing our response
                     console.log(data);
-                    ul.innerHTML = "";
-                    for (let i = 0; i < data.length; i++) {
-                        let name = data[i]._source["name.en"];
-                        let li = document.createElement('li');
-                        li.appendChild(document.createTextNode(name));
-                        ul.appendChild(li);
-                    }
+                    // ul.innerHTML = "";
+                    // for (let i = 0; i < data.length; i++) {
+                    //     let name = data[i]._source["name.en"];
+                    //     let li = document.createElement('li');
+                    //     li.appendChild(document.createTextNode(name));
+                    //     ul.appendChild(li);
+                    // }
                 })
                 .catch(errorMsg => { console.log(errorMsg); });
         }
